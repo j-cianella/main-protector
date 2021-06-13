@@ -1,0 +1,27 @@
+{
+  "name": "github-webhook-lambda",
+  "version": "1.0.0",
+  "description": "Lambda to receive GitHub Webhook",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j-cianella/master-protector.git"
+  },
+  "author": "Jeremy Cianella",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/j-cianella/master-protector/issues"
+  },
+  "homepage": "https://github.com/j-cianella/master-protector#readme",
+  "dependencies": {
+    "@octokit/webhooks-methods": "^1.0.0",
+    "@octokit/webhooks-types": "^3.77.1",
+    "aws-lambda": "^1.0.6"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.77"
+  }
+}
