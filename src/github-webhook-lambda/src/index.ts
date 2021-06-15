@@ -1,6 +1,7 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda';
 import { verify } from '@octokit/webhooks-methods';
 import { RepositoryEvent } from '@octokit/webhooks-types';
+import { setBranchProtection } from './branch-protection';
 
 function validateWebhookCall(signature: string, webhookPayload: any) {
   if (!signature) {
@@ -30,7 +31,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
     headers[key.toLowerCase()] = headers[key];
   }
 
-  const webhookPayload = event.body! as any;
+  const webhookPayload = event.body as any;
   const signature = headers['x-hub-signature'] as string;
 
   const isValidWebhookCall = validateWebhookCall(signature, webhookPayload);
@@ -54,6 +55,17 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
 
     if (body.action === 'created') {
       console.log(`A new Repo was created with name: ${body.repository.name}`);
+
+      const mainlineBranch = process.env.MAINLINE_BRANCH || 'main';
+
+      if (!body.repository.private) {
+        await setBranchProtection(mainlineBranch, body.repository.name, body.repository.owner.login, installationId);
+      } else {
+        console.log(
+          'The repo is private and private account in the free tier do not allow for setting branch ' +
+            'protection. If this is a paid account, please remove the check.'
+        );
+      }
     }
   }
 

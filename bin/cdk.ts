@@ -1,10 +1,13 @@
 #!/usr/bin/env node
-require('dotenv').config();
+import * as dotenv from 'dotenv';
+dotenv.config();
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { MasterProtectorStack } from '../cdk/master-protector';
+import { MainProtectorStack } from '../cdk/main-protector';
+
+dotenv.config({ path: __dirname + '/.env' });
 
 const app = new cdk.App();
-const masterProtectorStack = new MasterProtectorStack(app, 'MasterProtectorStack');
+const mainProtectorStack = new MainProtectorStack(app, 'MainProtectorStack');
 
-cdk.Tags.of(masterProtectorStack).add('App', 'master-protector');
+cdk.Tags.of(mainProtectorStack).add('App', 'main-protector');

@@ -3,12 +3,12 @@ import * as apigw from '@aws-cdk/aws-apigateway';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as lambdaNode from '@aws-cdk/aws-lambda-nodejs';
 
-export class MasterProtectorStack extends cdk.Stack {
+export class MainProtectorStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const githubWebhookFunction = new lambdaNode.NodejsFunction(this, 'github-webhook-function', {
-      functionName: 'master-protector-github-webhook-function',
+      functionName: 'main-protector-github-webhook-function',
       memorySize: 1024,
       entry: './src/github-webhook-lambda/src/index.ts',
       handler: 'handler',
@@ -16,6 +16,9 @@ export class MasterProtectorStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(15),
       environment: {
         GITHUB_APP_WEBHOOK_SECRET: process.env.GITHUB_APP_WEBHOOK_SECRET || '',
+        GITHUB_APP_ID: process.env.GITHUB_APP_ID || '',
+        GITHUB_APP_PRIVATE_KEY: process.env.GITHUB_APP_PRIVATE_KEY || '',
+        MAINLINE_BRANCH: 'main',
       },
     });
 
