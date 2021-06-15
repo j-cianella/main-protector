@@ -9,7 +9,7 @@ function validateWebhookCall(signature: string, webhookPayload: any) {
     return false;
   }
 
-  const secret = process.env.GITHUB_APP_WEBHOOK_SECRET || '';
+  const secret = process.env.GH_APP_WEBHOOK_SECRET || '';
 
   if (!secret) {
     console.error('Webhook Secret not available in environment variable');

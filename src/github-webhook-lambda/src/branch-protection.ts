@@ -13,11 +13,11 @@ export async function setBranchProtection(
   );
 
   try {
-    const privateKey = Buffer.from(process.env.GITHUB_APP_PRIVATE_KEY || '', 'base64').toString();
+    const privateKey = Buffer.from(process.env.GH_APP_PRIVATE_KEY || '', 'base64').toString();
     const octokit = new Octokit({
       authStrategy: createAppAuth,
       auth: {
-        appId: process.env.GITHUB_APP_ID,
+        appId: process.env.GH_APP_ID,
         privateKey,
         installationId: installationId,
       },

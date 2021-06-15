@@ -15,9 +15,9 @@ export class MainProtectorStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_12_X,
       timeout: cdk.Duration.seconds(15),
       environment: {
-        GITHUB_APP_WEBHOOK_SECRET: process.env.GITHUB_APP_WEBHOOK_SECRET || '',
-        GITHUB_APP_ID: process.env.GITHUB_APP_ID || '',
-        GITHUB_APP_PRIVATE_KEY: process.env.GITHUB_APP_PRIVATE_KEY || '',
+        GH_APP_WEBHOOK_SECRET: process.env.GH_APP_WEBHOOK_SECRET || '',
+        GH_APP_ID: process.env.GH_APP_ID || '',
+        GH_APP_PRIVATE_KEY: process.env.GH_APP_PRIVATE_KEY || '',
         MAINLINE_BRANCH: 'main',
       },
     });
