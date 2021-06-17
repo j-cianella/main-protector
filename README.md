@@ -45,6 +45,8 @@ Once the protection is set a new issue is created notifing everyone that the pro
 
 The AWS Cloud Developmnt Kit (CDK) was used to define infrastructure as code. The use of TypeScript allows for IaC and FaaS allows for strongly typed classes and methods.
 
+Deployment is done using the `cdk deploy` command with IAM credentials allowing lambda, API gateway, cloudformation and IAM access. Note: previous cdk bootstrapping is required.
+
 ## Automated Testing
 
 The project is already setup to use jest for automated testing.
