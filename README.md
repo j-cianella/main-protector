@@ -30,12 +30,12 @@ Note: These secrets are exposed in the lambda function properties and SSM parame
 
 - GITHUB_APP_WEBHOOK_SECRET - The webhook secret added to the app
 - GITHUB_APP_ID - The app id from the generated app
-- GITHUB_APP_PRIVATE_KEY = The private key as a base64 encoded string
+- GITHUB_APP_PRIVATE_KEY - The private key as a base64 encoded string
 - MAINLINE_BRANCH - Branch to protect, defaulted to 'main'
 
 ## Webhook
 
-The GitHub webhook is created at the organization level and is subscribed to "Respositories" events.
+The GitHub webhook is created at the organization level and is subscribed to "Respositories" events. A webhook secret is used to validate that the message is coming from GitHub.
 
 ## Infrastructure
 
@@ -49,11 +49,30 @@ The AWS Cloud Developmnt Kit (CDK) was used to define infrastructure as code. Th
 
 Deployments are done using GitHub Actions using the `cdk deploy` command. IAM credentials allowing lambda, API gateway, cloudformation and IAM access must be setup in secrets within the repo. Note: previous cdk bootstrapping of the AWS environment used is required.
 
-## Automated Testing
+## TODOs
+
+Here are some additional things that would have been done had there been more time to work on this, or to productionize it.
+
+### Automated Testing
 
 The project is already setup to use jest for automated testing.
 
-Due to time constraints, tradeoffs were made to not add unit testing at this time. Due to the use 3rd party libraries, mainly Octokit,
-mocking would be hte main source of testing which isnt as value add.
+Due to time constraints, tradeoffs were made to not add unit testing at this time. Due to the use 3rd party libraries, mainly Octokit, mocking would be hte main source of testing which isnt as value add.
 
 Integration tests to validate the settings in the repo after creation would be a nice value add.
+
+### WAF
+
+Setting up a WAF on the API gateway to only allow GitHub CIDR ranges would add an additional layer of security against outside calls.
+
+Note: The [GitHub meta API](https://api.github.com/meta) endpoint will give CIDR ranges for IP origins of Webhook calls.
+
+### Observability
+
+Add more robust logging and collect metrics on the health of this endpoint. Log aggregation tools like Splunk or AWS CloudWatch can collect metrics and proactively alert when there are any errors.
+
+### Compliance Scanning and Reporting
+
+This framework with CDK can be used to add additional lambda functions to call the GitHub API using the same GitHub App that was created (with additional permissions added as needed).
+
+For example a lambda can be created on a cron schedule to look at all repos and verify that the mainline branch is properly protected. Alerting (SNS?) can be triggered for any out of compliance repositories.
