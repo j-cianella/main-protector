@@ -1,8 +1,26 @@
 # GitHub Main Protector
 
+## Overview
+
 This project contains a function to automatically set the 'main' branch protection of a repo as soon as it is created. An issue is created in the repo with a notification of the newly changed settings.
 
+### Reusability
+
+This project is reusable and can be a base template where additional webhook events can be subscribed to and acted upon. For those with infrastructure in AWS using this approach, you will be able to run any actions within your VPC, allowing secure network connectivity to your resources.
+
+### Branch Protection Rules
+
+The following branch protection rules are currently enabled but they can be modified to meet organizational requirements:
+
+- Require status checks for 'build' and 'test' actions
+- Include administrators in all restrictions
+- Require pull request reviews
+  - Dismiss stale reviews is enabled
+  - Require code owner reviews is enabled
+
 ## Configuration
+
+### GitHub App
 
 To set up this process a GitHub App installed at the organization is created. This app is owned by the organiation to allow for direct ownership, without reliance on a specific user.
 
