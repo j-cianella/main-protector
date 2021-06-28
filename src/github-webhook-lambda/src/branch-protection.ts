@@ -51,7 +51,7 @@ export async function setBranchProtection(
         `Users will not be able to push directly to the ${mainlineBranch} branch.\n` +
         `At least 1 review will be required to merge to ${mainlineBranch}\n` +
         `Administrators are asked to do the same but can override in necessary circumstances.\n ` +
-        `FYI @jcianella\n`,
+        `FYI @${process.env.ADMIN_USER}`,
     });
     console.log('Process completed successfully!');
   } catch (e) {

@@ -19,6 +19,7 @@ export class MainProtectorStack extends cdk.Stack {
         GH_APP_ID: process.env.GH_APP_ID || '',
         GH_APP_PRIVATE_KEY: process.env.GH_APP_PRIVATE_KEY || '',
         MAINLINE_BRANCH: 'main',
+        ADMIN_USER: 'jcianella',
       },
     });
 

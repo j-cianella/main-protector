@@ -59,7 +59,7 @@ The GitHub webhook is created at the organization level and is subscribed to "Re
 
 The webhook is hosted on AWS with an API Gateway directing GitHub webhooks to a lambda function. The function uses the octokit class to automatically set the protection of the branch.
 
-Once the protection is set a new issue is created notifing everyone that the protection has been set. The issue is set to closed
+Once the protection is set a new issue is created notifing everyone that the protection has been set. A configurable ADMIN_USER environemnt variable is also notified. The issue is set to closed by default.
 
 The AWS Cloud Developmnt Kit (CDK) was used to define infrastructure as code. The use of TypeScript allows for IaC and FaaS allows for strongly typed classes and methods.
 
